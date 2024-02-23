@@ -45,7 +45,7 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           children: [
             Text('A random AWESOME idea:'),
-            Text(pair.asCamelCase),
+            BigCard(pair: pair),
             ElevatedButton(
                 onPressed: () {
                   appState.getNext();
@@ -53,6 +53,25 @@ class MyHomePage extends StatelessWidget {
                 child: Text('Next'))
           ],
         ),
+      ),
+    );
+  }
+}
+
+class BigCard extends StatelessWidget {
+  const BigCard({
+    super.key,
+    required this.pair,
+  });
+
+  final WordPair pair;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Text(pair.asCamelCase),
       ),
     );
   }
