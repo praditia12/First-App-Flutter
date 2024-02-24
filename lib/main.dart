@@ -32,6 +32,17 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
+
+  var favorite = <WordPair>[];
+
+  void toggleFavorite() {
+    if (favorite.contains(current)) {
+      favorite.remove(current);
+    } else {
+      favorite.add(current);
+    }
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatelessWidget {
@@ -49,11 +60,22 @@ class MyHomePage extends StatelessWidget {
               // Text('A random AWESOME idea:'),
               BigCard(pair: pair),
               SizedBox(height: 10),
-              ElevatedButton(
-                  onPressed: () {
-                    appState.getNext();
-                  },
-                  child: Text('Next'))
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElevatedButton.icon(
+                      onPressed: () {
+                        appState.toggleFavorite();
+                      },
+                      icon: Icon(Icons.favorite),
+                      label: Text('Like')),
+                  ElevatedButton(
+                      onPressed: () {
+                        appState.getNext();
+                      },
+                      child: Text('Next')),
+                ],
+              )
             ],
           ),
         ),
